@@ -1,4 +1,6 @@
 # 🧑🏼‍🚀 vLLM Production Stack on Azure AKS with Terraform
+<img width="1536" height="1024" alt="vllm_prod-stack-aks" src="https://github.com/user-attachments/assets/28987e5b-a438-454b-a965-fde48a41774b" />
+
 <!-- canvas.md -->
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables':{ 'primaryColor':'#0078d4', 'primaryTextColor':'#ffffff', 'primaryBorderColor':'#0078d4','lineColor':'#005a9e', 'secondaryColor':'#005a9e', 'tertiaryColor':'#fff'}}}%%
@@ -47,7 +49,6 @@ flowchart TD
     class R,S,T output
 ```
 ✍🏼 This Terraform stack delivers a **production-ready vLLM serving environment** on Azure AKS supporting both CPU/GPU inference with operational best practices, automated SSL/TLS certificate management via Let's Encrypt, and comprehensive observability.
-
 | Project Item | Description |
 |--------------|-------------|
 | **Author** | [@cloudthrill](https://cloudthrill.ca) |
@@ -703,6 +704,7 @@ terraform destroy
 
 
 *Part of the CloudThrill Kubernetes contribution to vLLM production-stack project.*
+
 
 
 
