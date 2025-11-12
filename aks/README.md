@@ -7,7 +7,7 @@ flowchart TD
         A[terraform plan] --> B[terraform apply]
     end
     subgraph "Azure Cloud Infrastructure"
-        C[VNet + Subnets<br>system + gpu + appgw] --> D[Azure Kubernetes Service AKS<br>v1.30]
+        C[VNet + Subnets<br>system + gpu + appgw] --> D[Azure Kubernetes Service AKS<br>v1.32]
         D --> E[GPU Node Pool<br>NC4as_T4_v3 / NC6s_v3<br>auto-scaling 1-3<br>+ NVIDIA GPU Operator]
         D --> F[CPU Node Pool<br>Standard_D4s_v4<br>system + workloads]
         D --> G[Azure CNI Overlay<br>Cilium network policy]
@@ -141,7 +141,7 @@ flowchart TD
 |------|---------|-------|
 | **Terraform** | ≥ 1.9 | Tested on 1.9+ |
 | **Azure CLI** | ≥ 2.50 | For authentication |
-| **kubectl** | ≥ 1.30 | ±1 of control-plane |
+| **kubectl** | ≥ 1.32 | ±1 of control-plane |
 | **jq** | optional | JSON helper |
 
 <details>
@@ -202,7 +202,7 @@ az account show
 
 ### 2. ☸️ AKS Cluster
 
-* Control plane v1.30 with managed node pools
+* Control plane v1.32 with managed node pools
 
 | Pool | Instance | Purpose |
 |------|----------|---------|
@@ -286,7 +286,7 @@ This stack provides extensive customization options. Here are the most important
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `location` | `eastus` | Azure region |
-| `cluster_version` | `1.30` | Kubernetes version |
+| `cluster_version` | `1.32` | Kubernetes version |
 | `inference_hardware` | `cpu` | `cpu` or `gpu` |
 | `pod_cidr` | `10.244.0.0/16` | Pod overlay network |
 | `enable_vllm` | `false` | Deploy vLLM stack |
@@ -378,7 +378,7 @@ This stack provides extensive customization options. Here are the most important
 | <a name="input_client_id"></a> [client\_id](#input\_client\_id) | Azure AD client ID for the AKS cluster. | `string` | `""` | no |
 | <a name="input_client_secret"></a> [client\_secret](#input\_client\_secret) | Azure AD client secret for the AKS cluster. | `string` | `""` | no |
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | EKS cluster name. | `string` | `"vllm-aks"` | no |
-| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Kubernetes version. | `string` | `"1.30"` | no |
+| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Kubernetes version. | `string` | `"1.32"` | no |
 | <a name="input_cpu_node_max_size"></a> [cpu\_node\_max\_size](#input\_cpu\_node\_max\_size) | n/a | `number` | `2` | no |
 | <a name="input_cpu_node_min_size"></a> [cpu\_node\_min\_size](#input\_cpu\_node\_min\_size) | n/a | `number` | `1` | no |
 | <a name="input_cpu_os_disk_size_gb"></a> [cpu\_os\_disk\_size\_gb](#input\_cpu\_os\_disk\_size\_gb) | OS disk size for CPU nodes | `number` | `50` | no |
@@ -458,7 +458,7 @@ This stack provides extensive customization options. Here are the most important
 | Phase                 | Component          | Action                                            | Condition                    |
 | --------------------- | ------------------ | ------------------------------------------------- | ---------------------------- |
 | **1. Infrastructure** | VNet               | Create VNet with subnets                          | Always                       |
-|                       | AKS                | Deploy v1.30 cluster + system & CPU node pools    | Always                       |
+|                       | AKS                | Deploy v1.32 cluster + system & CPU node pools    | Always                       |
 |                       | CNI                | Enable Azure CNI with Cilium                      | Always                       |
 |                       | Add-ons            | Install Azure Disk CSI, NGINX Ingress             | Always                       |
 | **2. SSL/TLS**        | cert-manager       | Install cert-manager                              | Always                       |
@@ -703,5 +703,6 @@ terraform destroy
 
 
 *Part of the CloudThrill Kubernetes contribution to vLLM production-stack project.*
+
 
 
