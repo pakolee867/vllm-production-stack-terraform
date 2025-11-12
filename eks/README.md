@@ -1,5 +1,6 @@
 # 🧑🏼‍🚀 vLLM Production Stack on Amazon EKS with terraform
 <img width="1536" height="1024" alt="vllm_prod-stack-eks-4" src="https://github.com/user-attachments/assets/14bee645-75f6-4e1b-98be-f88d4ac1d20a" />
+
 ✍🏼 This terraform stack delivers a **production-ready vLLM serving environment** On Amazon EKS supporting both CPU/GPU inference with operational best practices embedded in [AWS Integration and Automation](https://github.com/aws-ia) (security, scalability, observability).
 
 |Project Item |Description|
