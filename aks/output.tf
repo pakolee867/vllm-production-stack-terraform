@@ -1,3 +1,6 @@
+output "Stack_Info" {
+  value = "Built with ❤️ by @Cloudthrill"
+}
 output "aks_deployment_info" {
   description = "Complete AKS deployment information"
   value = {
