@@ -286,6 +286,8 @@ This stack provides extensive customization options. Here are the most important
 
 | Variable | Default | Description |
 |----------|---------|-------------|
+| `subscription_id` | `xxx` | Azure region |
+| `tenant_id` | `xxx` | Azure region |
 | `location` | `eastus` | Azure region |
 | `cluster_version` | `1.32` | Kubernetes version |
 | `inference_hardware` | `cpu` | `cpu` or `gpu` |
@@ -704,6 +706,7 @@ terraform destroy
 
 
 *Part of the CloudThrill Kubernetes contribution to vLLM production-stack project.*
+
 
 
 
