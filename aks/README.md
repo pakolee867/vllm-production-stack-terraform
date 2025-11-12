@@ -310,6 +310,146 @@ This stack provides extensive customization options. Here are the most important
 * **Environment variables**: [`env-vars.template`](./env-vars.template)
 * **Terraform variables**: [`terraform.tfvars.template`](./terraform.tfvars.template)
 
+<details><summary><b> Full list of variables</b></summary>
+    
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9, < 2.0 |
+| <a name="requirement_azapi"></a> [azapi](#requirement\_azapi) | ~> 2.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 4.0.0, < 5.0.0 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 2.15.1 |
+| <a name="requirement_kubectl"></a> [kubectl](#requirement\_kubectl) | >= 1.19.0 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | 2.22.0 |
+| <a name="requirement_local"></a> [local](#requirement\_local) | >= 2.5 |
+| <a name="requirement_random"></a> [random](#requirement\_random) | >= 3.5.0, < 4.0.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 4.0.0, < 5.0.0 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | >= 2.15.1 |
+| <a name="provider_kubectl"></a> [kubectl](#provider\_kubectl) | >= 1.19.0 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | 2.22.0 |
+| <a name="provider_local"></a> [local](#provider\_local) | >= 2.5 |
+| <a name="provider_template"></a> [template](#provider\_template) | n/a |
+
+## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_aks"></a> [aks](#module\_aks) | ./modules/avm-res-cs-managedcluster | n/a |
+| <a name="module_vnet"></a> [vnet](#module\_vnet) | ./modules/az-networking/vnet | n/a |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [azurerm_resource_group.rg](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/resource_group) | resource |
+| [helm_release.cert_manager](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.gpu_operator](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.kube_prometheus_stack](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.nginx_ingress](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.vllm_stack](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [kubectl_manifest.letsencrypt_issuer](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubectl_manifest.vllm_service_monitor](https://registry.terraform.io/providers/gavinbunney/kubectl/latest/docs/resources/manifest) | resource |
+| [kubernetes_config_map.vllm_dashboard](https://registry.terraform.io/providers/hashicorp/kubernetes/2.22.0/docs/resources/config_map) | resource |
+| [kubernetes_namespace.vllm](https://registry.terraform.io/providers/hashicorp/kubernetes/2.22.0/docs/resources/namespace) | resource |
+| [kubernetes_secret.hf_token](https://registry.terraform.io/providers/hashicorp/kubernetes/2.22.0/docs/resources/secret) | resource |
+| [local_file.kubeconfig](https://registry.terraform.io/providers/hashicorp/local/latest/docs/resources/file) | resource |
+| [azurerm_subnet.existing_appgw](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subnet) | data source |
+| [azurerm_subnet.existing_gpu](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subnet) | data source |
+| [azurerm_subnet.existing_system](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/subnet) | data source |
+| [azurerm_virtual_network.existing](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/virtual_network) | data source |
+| [kubernetes_ingress_v1.grafana](https://registry.terraform.io/providers/hashicorp/kubernetes/2.22.0/docs/data-sources/ingress_v1) | data source |
+| [kubernetes_resources.vllm_ingresses](https://registry.terraform.io/providers/hashicorp/kubernetes/2.22.0/docs/data-sources/resources) | data source |
+| [kubernetes_service.nginx_ingress](https://registry.terraform.io/providers/hashicorp/kubernetes/2.22.0/docs/data-sources/service) | data source |
+| [template_file.vllm_values](https://registry.terraform.io/providers/hashicorp/template/latest/docs/data-sources/file) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_api_private_access"></a> [api\_private\_access](#input\_api\_private\_access) | n/a | `bool` | `true` | no |
+| <a name="input_api_public_access"></a> [api\_public\_access](#input\_api\_public\_access) | API endpoint exposure | `bool` | `true` | no |
+| <a name="input_appgw_subnet"></a> [appgw\_subnet](#input\_appgw\_subnet) | **AGIC requirement with Overlay**: dedicate a /24 for App Gateway | `string` | `"10.20.50.0/24"` | no |
+| <a name="input_client_id"></a> [client\_id](#input\_client\_id) | Azure AD client ID for the AKS cluster. | `string` | `""` | no |
+| <a name="input_client_secret"></a> [client\_secret](#input\_client\_secret) | Azure AD client secret for the AKS cluster. | `string` | `""` | no |
+| <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | EKS cluster name. | `string` | `"vllm-aks"` | no |
+| <a name="input_cluster_version"></a> [cluster\_version](#input\_cluster\_version) | Kubernetes version. | `string` | `"1.30"` | no |
+| <a name="input_cpu_node_max_size"></a> [cpu\_node\_max\_size](#input\_cpu\_node\_max\_size) | n/a | `number` | `2` | no |
+| <a name="input_cpu_node_min_size"></a> [cpu\_node\_min\_size](#input\_cpu\_node\_min\_size) | n/a | `number` | `1` | no |
+| <a name="input_cpu_os_disk_size_gb"></a> [cpu\_os\_disk\_size\_gb](#input\_cpu\_os\_disk\_size\_gb) | OS disk size for CPU nodes | `number` | `50` | no |
+| <a name="input_cpu_os_disk_type"></a> [cpu\_os\_disk\_type](#input\_cpu\_os\_disk\_type) | OS disk type for CPU nodes | `string` | `"Managed"` | no |
+| <a name="input_cpu_os_sku"></a> [cpu\_os\_sku](#input\_cpu\_os\_sku) | OS SKU for CPU nodes | `string` | `"AzureLinux"` | no |
+| <a name="input_cpu_vllm_helm_config"></a> [cpu\_vllm\_helm\_config](#input\_cpu\_vllm\_helm\_config) | Path to the Helm chart values template for CPU inference. | `string` | `"modules/llm-stack/helm/cpu/cpu-tinyllama-light-ingress-azure.tpl"` | no |
+| <a name="input_create_vnet"></a> [create\_vnet](#input\_create\_vnet) | Create a new VNET (true) or reuse an existing one (false). | `bool` | `true` | no |
+| <a name="input_dns_service_ip"></a> [dns\_service\_ip](#input\_dns\_service\_ip) | n/a | `string` | `"10.96.0.10"` | no |
+| <a name="input_enable_cert_manager"></a> [enable\_cert\_manager](#input\_enable\_cert\_manager) | n/a | `bool` | `true` | no |
+| <a name="input_enable_cert_manager_cluster_issuer"></a> [enable\_cert\_manager\_cluster\_issuer](#input\_enable\_cert\_manager\_cluster\_issuer) | n/a | `bool` | `true` | no |
+| <a name="input_enable_disk_csi_driver"></a> [enable\_disk\_csi\_driver](#input\_enable\_disk\_csi\_driver) | n/a | `bool` | `true` | no |
+| <a name="input_enable_dns_support"></a> [enable\_dns\_support](#input\_enable\_dns\_support) | n/a | `bool` | `true` | no |
+| <a name="input_enable_external_secrets"></a> [enable\_external\_secrets](#input\_enable\_external\_secrets) | n/a | `bool` | `true` | no |
+| <a name="input_enable_file_csi_driver"></a> [enable\_file\_csi\_driver](#input\_enable\_file\_csi\_driver) | n/a | `bool` | `false` | no |
+| <a name="input_enable_file_storage"></a> [enable\_file\_storage](#input\_enable\_file\_storage) | Enable azure file storage resources for debugging | `bool` | `false` | no |
+| <a name="input_enable_grafana"></a> [enable\_grafana](#input\_enable\_grafana) | n/a | `bool` | `true` | no |
+| <a name="input_enable_keda"></a> [enable\_keda](#input\_enable\_keda) | Enable KEDA for workload autoscaling. | `bool` | `false` | no |
+| <a name="input_enable_metrics_server"></a> [enable\_metrics\_server](#input\_enable\_metrics\_server) | n/a | `bool` | `true` | no |
+| <a name="input_enable_prometheus"></a> [enable\_prometheus](#input\_enable\_prometheus) | n/a | `bool` | `true` | no |
+| <a name="input_enable_vllm"></a> [enable\_vllm](#input\_enable\_vllm) | Enable VLLM production stack add-on | `bool` | `false` | no |
+| <a name="input_enable_vpa"></a> [enable\_vpa](#input\_enable\_vpa) | Enable Vertical Pod Autoscaler (VPA). | `bool` | `false` | no |
+| <a name="input_gpu_node_max_size"></a> [gpu\_node\_max\_size](#input\_gpu\_node\_max\_size) | n/a | `number` | `1` | no |
+| <a name="input_gpu_node_min_size"></a> [gpu\_node\_min\_size](#input\_gpu\_node\_min\_size) | n/a | `number` | `1` | no |
+| <a name="input_gpu_operator_file"></a> [gpu\_operator\_file](#input\_gpu\_operator\_file) | Path to GPU Operator Helm values YAML. | `string` | `"modules/llm-stack/helm/gpu/gpu-operator-values.yaml"` | no |
+| <a name="input_gpu_os_disk_size_gb"></a> [gpu\_os\_disk\_size\_gb](#input\_gpu\_os\_disk\_size\_gb) | OS disk size for GPU nodes | `number` | `100` | no |
+| <a name="input_gpu_os_disk_type"></a> [gpu\_os\_disk\_type](#input\_gpu\_os\_disk\_type) | OS disk type for GPU nodes | `string` | `"Ephemeral"` | no |
+| <a name="input_gpu_os_sku"></a> [gpu\_os\_sku](#input\_gpu\_os\_sku) | OS SKU for GPU nodes | `string` | `"AzureLinux"` | no |
+| <a name="input_gpu_subnet"></a> [gpu\_subnet](#input\_gpu\_subnet) | n/a | `string` | `"10.20.2.0/24"` | no |
+| <a name="input_gpu_vllm_helm_config"></a> [gpu\_vllm\_helm\_config](#input\_gpu\_vllm\_helm\_config) | Path to the Helm chart values template for GPU inference. | `string` | `"modules/llm-stack/helm/gpu/gpu-tinyllama-light-ingress-azure.tpl"` | no |
+| <a name="input_grafana_admin_password"></a> [grafana\_admin\_password](#input\_grafana\_admin\_password) | Grafana admin password. | `string` | `"admin1234"` | no |
+| <a name="input_hf_token"></a> [hf\_token](#input\_hf\_token) | Hugging Face access token with model-download scope | `string` | n/a | yes |
+| <a name="input_http_app_routing_enabled"></a> [http\_app\_routing\_enabled](#input\_http\_app\_routing\_enabled) | Enable HTTP application routing. | `bool` | `false` | no |
+| <a name="input_image_cleaner_enabled"></a> [image\_cleaner\_enabled](#input\_image\_cleaner\_enabled) | Enable image cleaner to remove unused images. | `bool` | `true` | no |
+| <a name="input_image_cleaner_interval_hours"></a> [image\_cleaner\_interval\_hours](#input\_image\_cleaner\_interval\_hours) | Interval in hours for the image cleaner to run. | `number` | `24` | no |
+| <a name="input_inference_hardware"></a> [inference\_hardware](#input\_inference\_hardware) | Choose the hardware profile for inference workloads.<br/>• "cpu" → only the default CPU node‑group<br/>• "gpu" → CPU node‑group + a GPU node‑group (g4dn.xlarge, 1 node) | `string` | `"cpu"` | no |
+| <a name="input_letsencrypt_email"></a> [letsencrypt\_email](#input\_letsencrypt\_email) | n/a | `string` | `"admin@example.com"` | no |
+| <a name="input_location"></a> [location](#input\_location) | n/a | `string` | `"eastus"` | no |
+| <a name="input_managed_identities"></a> [managed\_identities](#input\_managed\_identities) | Managed identities for AKS. | `list(string)` | `[]` | no |
+| <a name="input_network_policy"></a> [network\_policy](#input\_network\_policy) | (Optional) Sets up network policy to be used with Azure CNI. Network policy allows us to control the traffic flow between pods. Currently supported values are calico and cilium. Defaults to cilium. | `string` | `"cilium"` | no |
+| <a name="input_node_mode"></a> [node\_mode](#input\_node\_mode) | Node pool mode for CPU nodes | `string` | `"User"` | no |
+| <a name="input_outbound_type"></a> [outbound\_type](#input\_outbound\_type) | Outbound type for AKS | `string` | `"loadBalancer"` | no |
+| <a name="input_pod_cidr"></a> [pod\_cidr](#input\_pod\_cidr) | Overlay pod network (keep your 10.244.0.0/16) | `string` | `"10.244.0.0/16"` | no |
+| <a name="input_prefix"></a> [prefix](#input\_prefix) | n/a | `string` | `"vllm-aks"` | no |
+| <a name="input_rbac_aad_azure_rbac_enabled"></a> [rbac\_aad\_azure\_rbac\_enabled](#input\_rbac\_aad\_azure\_rbac\_enabled) | Enable Azure RBAC for AKS | `bool` | `true` | no |
+| <a name="input_rbac_aad_tenant_id"></a> [rbac\_aad\_tenant\_id](#input\_rbac\_aad\_tenant\_id) | Azure AD tenant ID for AKS RBAC | `string` | `""` | no |
+| <a name="input_run_command_enabled"></a> [run\_command\_enabled](#input\_run\_command\_enabled) | Enable run command for executing commands on nodes. | `bool` | `true` | no |
+| <a name="input_service_cidr"></a> [service\_cidr](#input\_service\_cidr) | Service CIDR (ClusterIP/DNS) — non-overlapping | `string` | `"10.96.0.0/16"` | no |
+| <a name="input_subscription_id"></a> [subscription\_id](#input\_subscription\_id) | Azure subscription ID for the AKS cluster. | `string` | `""` | no |
+| <a name="input_system_subnet"></a> [system\_subnet](#input\_system\_subnet) | n/a | `string` | `"10.20.1.0/24"` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Tags applied to all Azure resources. | `map(string)` | <pre>{<br/>  "Application": "ai-inference",<br/>  "CostCenter": "AI-1234",<br/>  "Environment": "production",<br/>  "Project": "vllm-production-stack",<br/>  "Team": "LLMOps"<br/>}</pre> | no |
+| <a name="input_tenant_id"></a> [tenant\_id](#input\_tenant\_id) | Azure AD tenant ID for the AKS cluster. | `string` | `""` | no |
+| <a name="input_vnet_cidr"></a> [vnet\_cidr](#input\_vnet\_cidr) | CIDR block for the VNET. | `string` | `"10.20.0.0/16"` | no |
+| <a name="input_vnet_id"></a> [vnet\_id](#input\_vnet\_id) | Existing VNET ID (required when create\_vnet = false). | `string` | `""` | no |
+| <a name="input_vnet_name"></a> [vnet\_name](#input\_vnet\_name) | Name for the VNET. | `string` | `"vllm-vnet"` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_aks_deployment_info"></a> [aks\_deployment\_info](#output\_aks\_deployment\_info) | Complete AKS deployment information |
+| <a name="output_aks_key_vault_secrets_provider_object_id"></a> [aks\_key\_vault\_secrets\_provider\_object\_id](#output\_aks\_key\_vault\_secrets\_provider\_object\_id) | The object ID of the key vault secrets provider |
+| <a name="output_aks_kubelet_identity_id"></a> [aks\_kubelet\_identity\_id](#output\_aks\_kubelet\_identity\_id) | The identity ID of the kubelet identity |
+| <a name="output_aks_name"></a> [aks\_name](#output\_aks\_name) | Name of the Kubernetes cluster |
+| <a name="output_aks_oidc_issuer_url"></a> [aks\_oidc\_issuer\_url](#output\_aks\_oidc\_issuer\_url) | The OIDC issuer URL of the Kubernetes cluster |
+| <a name="output_aks_resource_id"></a> [aks\_resource\_id](#output\_aks\_resource\_id) | Resource ID of the Kubernetes cluster |
+| <a name="output_gpu_operator_status"></a> [gpu\_operator\_status](#output\_gpu\_operator\_status) | GPU Operator deployment status |
+| <a name="output_grafana_url"></a> [grafana\_url](#output\_grafana\_url) | n/a |
+| <a name="output_vllm_api_url"></a> [vllm\_api\_url](#output\_vllm\_api\_url) | The full HTTPS URL for the vLLM API |    
+
+</details>
+
 ---
 
 ## 🚀 Quick Start
@@ -438,87 +578,85 @@ curl ${VLLM_API_URL}/completions \
 
 ### Access Grafana
 ```bash
-# Get Grafana URL
-terraform output grafana_url
-
+# Get Grafana HTTPS URL (already printed by Terraform)
+terraform output -raw  grafana_url 
 # Or port forward
 kubectl port-forward svc/kube-prometheus-stack-grafana 3000:80 -n kube-prometheus-stack
 
-# Open http://localhost:3000
+# Open http://localhost:3000  or  https://grafana.xxxxx.nip.io
 ```
 
 **Login credentials:**
 - Username: `admin`
 - Password: Retrieve with:
 ```bash
-kubectl get secret -n kube-prometheus-stack kube-prometheus-stack-grafana \
-  -o jsonpath="{.data.admin-password}" | base64 --decode
+kubectl get secret -n kube-prometheus-stack kube-prometheus-stack-grafana -o jsonpath="{.data.admin-password}" | base64 --decode
 ```
+<img width="3813" height="1643" alt="image" src="https://github.com/user-attachments/assets/2df312b6-3465-4049-90c8-c33540f5b6d3" />
 
 ### Pre-configured Dashboards
 
-The stack automatically configures:
+The stack automatically configures: **vLLM Metrics Dashboard**: Model performance, latency, throughput, and key performance indicators.
 
-1. **vLLM Metrics Dashboard**: Model performance, latency, throughput, and key performance indicators.
 ---
 
 ## 🎯 Troubleshooting
 
-### Issue 1: Certificate Not Issuing
+  ### Issue 1: Certificate Not Issuing
 
-**Symptom:**
-```bash
-kubectl get certificate -n vllm
-# STATUS: Pending or False
-```
+  **Symptom:**
+  ```bash
+  kubectl get certificate -n vllm
+  # STATUS: Pending or False
+  ```
 
-**Debug:**
-```bash
-# Check certificate status
-kubectl describe certificate -n vllm
+  **Debug:**
+  ```bash
+  # Check certificate status
+  kubectl describe certificate -n vllm
 
-# Check cert-manager logs
-kubectl logs -n cert-manager -l app=cert-manager --tail=100
+  # Check cert-manager logs
+  kubectl logs -n cert-manager -l app=cert-manager --tail=100
 
-# Check HTTP-01 challenge
-kubectl get challenge -n vllm
-```
+  # Check HTTP-01 challenge
+  kubectl get challenge -n vllm
+  ```
 
-**Solution**: Ensure NGINX Ingress is running and accessible:
-```bash
-kubectl get pods -n ingress-nginx
-kubectl get svc -n ingress-nginx
-```
+  **Solution**: Ensure NGINX Ingress is running and accessible:
+  ```bash
+  kubectl get pods -n ingress-nginx
+  kubectl get svc -n ingress-nginx
+  ```
 
-### Issue 2: GPU Nodes Not Ready
+  ### Issue 2: GPU Nodes Not Ready
 
-**Symptom:** GPU pods stuck in pending.
+  **Symptom:** GPU pods stuck in pending.
 
-**Debug:**
-```bash
-# Check node status
-kubectl get nodes -o wide
+  **Debug:**
+  ```bash
+  # Check node status
+  kubectl get nodes -o wide
+ 
+  # Check GPU operator
+  kubectl get pods -n gpu-operator
 
-# Check GPU operator
-kubectl get pods -n gpu-operator
+  # Check node GPU resources
+  kubectl describe node -l agentpool=gpu
+  ```
 
-# Check node GPU resources
-kubectl describe node -l agentpool=gpu
-```
+  ### Issue 3: vLLM Pods CrashLoopBackOff
 
-### Issue 3: vLLM Pods CrashLoopBackOff
+  **Debug:**
+  ```bash
+  # Check pod logs
+  kubectl logs -n vllm -l app=vllm-server --tail=100
 
-**Debug:**
-```bash
-# Check pod logs
-kubectl logs -n vllm -l app=vllm-server --tail=100
+  # Check events
+  kubectl get events -n vllm --sort-by='.lastTimestamp'
 
-# Check events
-kubectl get events -n vllm --sort-by='.lastTimestamp'
-
-# Check Hugging Face token
-kubectl get secret hf-token-secret -n vllm -o yaml
-```
+  # Check Hugging Face token
+  kubectl get secret hf-token-secret -n vllm -o yaml
+  ```
 
 ### Useful Az cli Debugging Commands
 ```bash
@@ -565,3 +703,4 @@ terraform destroy
 
 
 *Part of the CloudThrill Kubernetes contribution to vLLM production-stack project.*
+
