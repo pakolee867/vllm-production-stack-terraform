@@ -702,10 +702,8 @@ terraform destroy
 ---
 
 **Author**: [@cloudthrill](https://cloudthrill.ca)  
-**Stack**: Terraform • Azure • AKS • Cilium • Helm • vLLM
+> *Part of the CloudThrill Kubernetes contribution to vLLM production-stack project.*
 
-
-*Part of the CloudThrill Kubernetes contribution to vLLM production-stack project.*
 
 
 
