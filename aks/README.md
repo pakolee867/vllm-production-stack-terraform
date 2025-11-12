@@ -476,8 +476,8 @@ This stack provides extensive customization options. Here are the most important
 
 ### 1️⃣ Clone the repository
 ```bash
-git clone https://github.com/vllm-project/production-stack
-cd production-stack/tutorials/terraform/aks/
+git clone https://github.com/CloudThrill/vllm-production-stack-terraform
+cd vllm-production-stack-terraform/aks/
 ```
 
 ### 2️⃣ Set Up Environment Variables
@@ -703,4 +703,5 @@ terraform destroy
 
 
 *Part of the CloudThrill Kubernetes contribution to vLLM production-stack project.*
+
 
