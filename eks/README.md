@@ -434,8 +434,8 @@ The deployment automatically provisions only the required infrastructure based o
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/vllm-project/production-stack
-cd production-stack/tutorials/terraform/eks/
+git clone https://github.com/CloudThrill/vllm-production-stack-terraform
+cd vllm-production-stack-terraform/eks/
 ```
 
 ### 2. Configure the Environment
