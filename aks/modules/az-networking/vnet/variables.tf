@@ -248,8 +248,6 @@ variable "peerings" {
       error_message_regex  = optional(list(string), ["ReferencedResourceNotProvisioned"])
       interval_seconds     = optional(number, 10)
       max_interval_seconds = optional(number, 180)
-      multiplier           = optional(number, 1.5)
-      randomization_factor = optional(number, 0.5)
     }), {})
   }))
   default     = {}
@@ -307,8 +305,6 @@ variable "retry" {
     error_message_regex  = optional(list(string), ["ReferencedResourceNotProvisioned"])
     interval_seconds     = optional(number, 10)
     max_interval_seconds = optional(number, 180)
-    multiplier           = optional(number, 1.5)
-    randomization_factor = optional(number, 0.5)
   })
   default     = {}
   description = "Retry configuration for the resource operations"
@@ -387,8 +383,6 @@ variable "subnets" {
       error_message_regex  = optional(list(string), ["ReferencedResourceNotProvisioned"])
       interval_seconds     = optional(number, 10)
       max_interval_seconds = optional(number, 180)
-      multiplier           = optional(number, 1.5)
-      randomization_factor = optional(number, 0.5)
     }), {})
     role_assignments = optional(map(object({
       role_definition_id_or_name             = string
