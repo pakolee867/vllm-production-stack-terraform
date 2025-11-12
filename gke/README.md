@@ -523,8 +523,12 @@ export TF_VAR_enable_disk_csi_driver="true"
 export TF_VAR_enable_file_csi_driver="false"  
 export TF_VAR_grafana_admin_password="admin1234"  
 ```
-
-### 3️⃣ Run Terraform deployment
+### 3️⃣ Make sure your gcloud authentication is fresh 
+Run the below, if Google’s “**Re-authentication for privileged access**” (RAPT) has expired
+```
+gcloud auth application-default login --no-launch-browser
+```
+### 4️⃣ Run Terraform deployment
 ```bash
 # Initialize Terraform
 terraform init
