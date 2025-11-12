@@ -411,8 +411,8 @@ The deployment automatically provisions only the required infrastructure based o
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/vllm-project/production-stack
-cd production-stack/tutorials/terraform/nebius/
+git clone https://github.com/CloudThrill/vllm-production-stack-terraform
+cd vllm-production-stack-terraform/nebius/
 ```
 
 ### 2. Configure the Environment
@@ -595,3 +595,4 @@ ingress:
 - vLLM Docs: [https://docs.vllm.ai/](https://docs.vllm.ai/)
 
 <!-- markdownlint-disable MD051 MD036 MD056 -->
+
