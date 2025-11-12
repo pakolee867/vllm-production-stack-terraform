@@ -1,0 +1,185 @@
+#!/bin/bash
+################################################################################
+# vLLM Production Stack on Azure AKS - Environment Variables Template
+################################################################################
+# Copy this file to 'env-vars' and customize for your deployment:
+#   $ cp env-vars.template env-vars
+#   $ vim env-vars
+#   $ source env-vars
+################################################################################
+
+################################################################################
+# 📦 Azure Provider Configuration
+################################################################################
+export TF_VAR_subscription_id=""      # Azure subscription ID
+export TF_VAR_tenant_id=""            # Azure AD tenant ID
+# Service Principal (optional - if not using az login)
+# export TF_VAR_client_id="your-service-principal-id"
+# export TF_VAR_client_secret="your-service-principal-secret"
+
+# OR use Azure CLI authentication (az login) - recommended for local dev
+################################################################################
+# 🌍 Global Settings
+################################################################################
+export TF_VAR_location="eastus"       # (Required) Azure region: eastus, westus2, canadacentral, etc.
+# export TF_VAR_prefix="vllm-aks"     # uncomment to customize prefix
+
+################################################################################
+# 🎛️ NVIDIA GPU Setup & Hardware Selection
+################################################################################
+# GPU Operator Helm values file (used when nvidia_setup="operator_custom")
+export TF_VAR_gpu_operator_file="modules/llm-stack/helm/gpu/gpu-operator-values.yaml" 
+
+# 🔧 Choose inference hardware profile:
+#   • "cpu" → CPU-only deployment (cost-effective)
+#   • "gpu" → CPU + GPU node pools (high-performance)
+export TF_VAR_inference_hardware="gpu"       # (Required) cpu or gpu
+
+################################################################################
+# 🧠 vLLM Production Stack
+################################################################################
+export TF_VAR_enable_vllm=true            # (Required) Enable vLLM deployment
+export TF_VAR_hf_token=""                   # (Required) Hugging Face token (required for model downloads)
+
+# Helm Chart Templates
+# CPU inference Helm values template
+# export TF_VAR_cpu_vllm_helm_config="modules/llm-stack/helm/cpu/cpu-tinyllama-light-ingress-azure.tpl"
+
+# GPU inference Helm values template
+# export TF_VAR_gpu_vllm_helm_config="modules/llm-stack/helm/gpu/gpu-tinyllama-light-ingress-azure.tpl"
+
+################################################################################
+# 🔐 TLS / Certificate Management
+################################################################################
+export TF_VAR_letsencrypt_email="info@gmail.com" # replace with your email for Let's Encrypt notifications
+
+################################################################################
+# ☸️ AKS Cluster Configuration
+################################################################################
+export TF_VAR_cluster_name="vllm-aks"        # AKS cluster name
+export TF_VAR_cluster_version="1.30"         # Kubernetes version
+
+# API endpoint exposure
+# export TF_VAR_api_public_access=true       # Allow public access to API server
+# export TF_VAR_api_private_access=true      # Enable private cluster endpoint
+
+# Azure RBAC
+# export TF_VAR_rbac_aad_azure_rbac_enabled=true # Enable Azure RBAC
+# export TF_VAR_rbac_aad_tenant_id=""          # Leave empty to use subscription tenant
+
+# Outbound connectivity
+# export TF_VAR_outbound_type="loadBalancer"   # loadBalancer or userDefinedRouting
+
+################################################################################
+# 🌐 Networking Configuration
+################################################################################
+
+# VNet Creation
+# export TF_VAR_create_vnet=true             # Create new VNet or use existing
+# export TF_VAR_vnet_id=""                     # Existing VNet ID (if create_vnet=false)
+# export TF_VAR_vnet_name="vllm-vnet"          # VNet name
+# export TF_VAR_vnet_cidr="10.20.0.0/16"       # VNet CIDR block
+
+# Subnet Configuration
+# export TF_VAR_system_subnet="10.20.1.0/24"   # System node pool subnet
+# export TF_VAR_gpu_subnet="10.20.2.0/24"      # GPU node pool subnet
+# export TF_VAR_appgw_subnet="10.20.50.0/24"   # Application Gateway subnet
+
+# Service & Pod Networks
+# export TF_VAR_pod_cidr="10.244.0.0/16"       # Pod overlay network (Azure CNI Overlay)
+# export TF_VAR_service_cidr="10.96.0.0/16"    # Kubernetes service CIDR
+# export TF_VAR_dns_service_ip="10.96.0.10"    # CoreDNS service IP
+
+# Network Policy
+# export TF_VAR_network_policy="cilium"        # Network policy: cilium or calico
+
+# DNS
+# export TF_VAR_enable_dns_support=true
+
+################################################################################
+# 💻 Node Pool Configuration
+################################################################################
+
+# CPU Node Pool Sizing
+# export TF_VAR_cpu_node_min_size="1"          # Minimum CPU nodes
+# export TF_VAR_cpu_node_max_size="2"          # Maximum CPU nodes
+
+# CPU Node Configuration
+# export TF_VAR_node_mode="User"               # Node pool mode: System or User
+# export TF_VAR_cpu_os_sku="AzureLinux"        # OS SKU: AzureLinux, Ubuntu, etc.
+# export TF_VAR_cpu_os_disk_type="Managed"     # Managed or Ephemeral
+# export TF_VAR_cpu_os_disk_size_gb="50"       # OS disk size in GB
+
+# GPU Node Pool Sizing (ignored unless inference_hardware="gpu")
+# export TF_VAR_gpu_node_min_size="1"          # Minimum GPU nodes
+# export TF_VAR_gpu_node_max_size="1"          # Maximum GPU nodes
+
+# GPU Node Configuration
+# export TF_VAR_gpu_os_sku="AzureLinux"        # OS SKU for GPU nodes
+# export TF_VAR_gpu_os_disk_type="Ephemeral"   # Ephemeral for better GPU performance
+# export TF_VAR_gpu_os_disk_size_gb="100"      # OS disk size in GB
+
+################################################################################
+# 📊 Observability Stack
+################################################################################
+# export TF_VAR_grafana_admin_password="admin1234"  # Grafana admin password (change this!)
+
+################################################################################
+# 💾 Storage Configuration
+################################################################################
+export TF_VAR_enable_disk_csi_driver=true  # Azure Disk CSI driver (block storage)
+export TF_VAR_enable_file_csi_driver=false # Azure Files CSI driver (shared storage)
+export TF_VAR_enable_file_storage=false    # Create Azure Files resources
+
+################################################################################
+# 🔑 Secrets Management
+################################################################################
+# export TF_VAR_enable_external_secrets=true # Install External Secrets Operator
+
+################################################################################
+# 🛠️ Additional Add-ons
+################################################################################
+# export TF_VAR_http_application_routing_enabled=false [deprecated in AKS]  
+# export TF_VAR_enable_keda=false                      # KEDA for event-driven autoscaling
+# export TF_VAR_enable_vpa=false                       # Vertical Pod Autoscaler
+# export TF_VAR_image_cleaner_enabled=true             # Clean unused container images
+# export TF_VAR_image_cleaner_interval_hours="24"      # Image cleaner interval
+# export TF_VAR_run_command_enabled=true               # Enable run command on nodes
+# export TF_VAR_enable_telemetry=false                 # Module Telemetry and monitoring
+################################################################################
+# 🏷️ Resource Tags
+################################################################################
+# Tags applied to all Azure resources # already default
+# export TF_VAR_tags='{
+#  "Project": "vllm-production-stack",
+#  "Environment": "production",
+#  "Team": "LLMOps",
+#  "Application": "ai-inference",
+#  "CostCenter": "AI-1234"
+# }'
+
+################################################################################
+# ⚠️ IMPORTANT NOTES
+################################################################################
+# 1. Never commit the actual 'env-vars' file to Git
+# 2. Store sensitive values (tokens, passwords) in Azure Key Vault
+# 3. Review all default values before deployment
+# 4. Update TF_VAR_tags to match your organization's requirements
+# 5. For production: change default passwords and use strong secrets
+################################################################################
+
+# Validation check
+if [ -z "$TF_VAR_subscription_id" ]; then
+  echo "⚠️  WARNING: TF_VAR_subscription_id is not set!"
+  echo "   Set it before running 'terraform apply'"
+fi
+
+if [ "$TF_VAR_enable_vllm" = "true" ] && [ -z "$TF_VAR_hf_token" ]; then
+  echo "⚠️  WARNING: TF_VAR_hf_token is required when enable_vllm=true"
+fi
+
+echo "✅ Environment variables loaded successfully!"
+echo "   Region: $TF_VAR_location"
+echo "   Cluster: $TF_VAR_cluster_name"
+echo "   Hardware: $TF_VAR_inference_hardware"
+echo "   vLLM: $TF_VAR_enable_vllm"

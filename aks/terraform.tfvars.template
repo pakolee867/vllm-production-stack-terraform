@@ -1,0 +1,173 @@
+################################################################################
+# vLLM Production Stack on Azure AKS - Terraform Variables Template
+################################################################################
+# Copy this file to 'terraform.tfvars' and customize for your deployment:
+#   $ cp terraform.tfvars.template terraform.tfvars
+#   $ vim terraform.tfvars
+#
+# Note: Never commit terraform.tfvars to Git (add to .gitignore)
+################################################################################
+
+################################################################################
+# 📦 Azure Provider Configuration
+################################################################################
+subscription_id = ""  # (Required) Azure subscription ID
+tenant_id       = ""  # (Required) Azure AD tenant ID
+
+# Service Principal (optional - if not using az login)
+# client_id     = ""
+# client_secret = ""
+
+################################################################################
+# 🌍 Global Settings
+################################################################################
+location = "eastus"     # (Required) Azure region: eastus, westus2, canadacentral, etc.
+# prefix = "vllm-aks"   # Resource naming prefix
+
+################################################################################
+# 🎛️ GPU Configuration & Hardware Selection
+################################################################################
+# GPU Operator Helm values file (used when nvidia_setup="operator_custom")
+gpu_operator_file = "modules/llm-stack/helm/gpu/gpu-operator-values.yaml"
+
+# Choose inference hardware profile:
+#   • "cpu" → CPU-only deployment (cost-effective)
+#   • "gpu" → CPU + GPU node pools (high-performance)
+inference_hardware = "gpu"  # (Required) "cpu" or "gpu"
+
+################################################################################
+# 🧠 vLLM Production Stack
+################################################################################
+enable_vllm = true    # (Required) Enable vLLM deployment
+hf_token    = ""      # (Required) Hugging Face token for model downloads
+
+# Helm Chart Templates (uncomment to customize)
+# cpu_vllm_helm_config = "modules/llm-stack/helm/cpu/cpu-tinyllama-light-ingress-azure.tpl"
+# gpu_vllm_helm_config = "modules/llm-stack/helm/gpu/gpu-tinyllama-light-ingress-azure.tpl"
+
+################################################################################
+# 🔐 TLS / Certificate Management
+################################################################################
+letsencrypt_email = "info@gmail.com"  # Replace with your email for Let's Encrypt
+
+# enable_cert_manager                = true
+# enable_cert_manager_cluster_issuer = true
+
+################################################################################
+# ☸️ AKS Cluster Configuration
+################################################################################
+cluster_name    = "vllm-aks"  # AKS cluster name
+cluster_version = "1.30"      # Kubernetes version
+
+# API endpoint exposure
+# api_public_access  = true
+# api_private_access = true
+
+# Azure RBAC
+# rbac_aad_azure_rbac_enabled = true
+# rbac_aad_tenant_id          = ""  # Leave empty to use subscription tenant
+
+# Outbound connectivity
+# outbound_type = "loadBalancer"  # "loadBalancer" or "userDefinedRouting"
+
+################################################################################
+# 🌐 Networking Configuration
+################################################################################
+
+# VNet Creation
+# create_vnet = true
+# vnet_id     = ""               # Existing VNet ID (if create_vnet=false)
+# vnet_name   = "vllm-vnet"
+# vnet_cidr   = "10.20.0.0/16"
+
+# Subnet Configuration
+# system_subnet = "10.20.1.0/24"   # System node pool subnet
+# gpu_subnet    = "10.20.2.0/24"   # GPU node pool subnet
+# appgw_subnet  = "10.20.50.0/24"  # Application Gateway subnet
+
+# Service & Pod Networks
+# pod_cidr       = "10.244.0.0/16"  # Pod overlay network (Azure CNI Overlay)
+# service_cidr   = "10.96.0.0/16"   # Kubernetes service CIDR
+# dns_service_ip = "10.96.0.10"     # CoreDNS service IP
+
+# Network Policy
+# network_policy = "cilium"  # "cilium" or "calico"
+
+# DNS
+# enable_dns_support = true
+
+################################################################################
+# 💻 Node Pool Configuration
+################################################################################
+
+# CPU Node Pool Sizing
+# cpu_node_min_size = 1
+# cpu_node_max_size = 2
+
+# CPU Node Configuration
+# node_mode           = "User"        # "System" or "User"
+# cpu_os_sku          = "AzureLinux"  # "AzureLinux", "Ubuntu", etc.
+# cpu_os_disk_type    = "Managed"     # "Managed" or "Ephemeral"
+# cpu_os_disk_size_gb = 50
+
+# GPU Node Pool Sizing (ignored unless inference_hardware="gpu")
+# gpu_node_min_size = 1
+# gpu_node_max_size = 1
+
+# GPU Node Configuration
+# gpu_os_sku          = "AzureLinux"  # OS SKU for GPU nodes
+# gpu_os_disk_type    = "Ephemeral"   # "Ephemeral" for better GPU performance
+# gpu_os_disk_size_gb = 100
+
+################################################################################
+# 📊 Observability Stack
+################################################################################
+# enable_prometheus    = true
+# enable_grafana       = true
+# enable_metrics_server = true
+# grafana_admin_password = "admin1234"  # ⚠️ Change this!
+
+################################################################################
+# 💾 Storage Configuration
+################################################################################
+enable_disk_csi_driver = true   # Azure Disk CSI driver (block storage)
+enable_file_csi_driver = false  # Azure Files CSI driver (shared storage)
+enable_file_storage    = false  # Create Azure Files resources
+
+################################################################################
+# 🔑 Secrets Management
+################################################################################
+# enable_external_secrets = true
+
+################################################################################
+# 🛠️ Additional Add-ons
+################################################################################
+# enable_keda                       = false
+# enable_vpa                        = false
+# image_cleaner_enabled             = true
+# image_cleaner_interval_hours      = 24
+# run_command_enabled               = true
+# http_application_routing_enabled  = false  # Deprecated (retiring March 2025)
+# enable_telemetry                  = false  # Module telemetry
+
+################################################################################
+# 🏷️ Resource Tags
+################################################################################
+# Tags applied to all Azure resources
+tags = {
+  Project     = "vllm-production-stack"
+  Environment = "production"
+  Team        = "LLMOps"
+  Application = "ai-inference"
+  CostCenter  = "AI-1234"
+}
+
+################################################################################
+# ⚠️ IMPORTANT NOTES
+################################################################################
+# 1. Never commit terraform.tfvars to Git (add to .gitignore)
+# 2. Store sensitive values (tokens, passwords) in Azure Key Vault
+# 3. Review all default values before deployment
+# 4. Update tags to match your organization's requirements
+# 5. For production: change default passwords and use strong secrets
+################################################################################
