@@ -188,7 +188,7 @@ az account show
 | **Infrastructure** | VNet + AKS + Azure CNI Cilium | ✅ Always deployed | ✅ Always deployed |
 | **Add-ons** | Azure Disk CSI, NGINX Ingress, Prometheus | ✅ Always deployed | ✅ Always deployed |
 | **vLLM Stack** | Secrets + Helm chart | ✅ Deploy on CPU nodes | ✅ + GPU nodes + NVIDIA operator |
-| **Networking** | Load Balancer + Ingress + TLS | ✅ NGINX + cert-manager | ✅ NGINX + cert-manager |
+| **Networking** | Load Balancer + Ingress + TLS + Let's Encrypt | ✅ NGINX + cert-manager | ✅ NGINX + cert-manager |
 
 </div>
 
@@ -562,5 +562,6 @@ terraform destroy
 
 **Author**: [@cloudthrill](https://cloudthrill.ca)  
 **Stack**: Terraform • Azure • AKS • Cilium • Helm • vLLM
+
 
 *Part of the CloudThrill Kubernetes contribution to vLLM production-stack project.*
