@@ -83,18 +83,20 @@ flowchart TD
 
 ```bash
 ./
-├── cluster-tools.tf
-├── data_sources.tf
-├── main.tf
-├── network.tf
-├── output.tf
-├── provider.tf
-├── variables.tf
-├── vllm-production-stack.tf
+├── main.tf                          # MK8s cluster configuration
+├── network.tf                       # VPC, subnets, IP pools
+├── provider.tf                      # Nebius + Helm + kubectl providers
+├── variables.tf                     # All input variables
+├── output.tf                        # HTTPS endpoints, stack details
+├── cluster-tools.tf                 # cert-manager, NGINX, Prometheus
+├── data_sources.tf                  # Ingress data sources
+├── vllm-production-stack.tf         # vLLM Helm release
+├── env-vars.template                # Quick environment variable setup
+├── terraform.tfvars.template        # Terraform variables template
 ├── config
 │   ├── helm
-│   │   └── kube-prome-stack.yaml
-│   ├── kubeconfig.tpl
+│   │   └── kube-prome-stack.yaml   # Prometheus + Grafana values
+│   ├── kubeconfig.tpl              # Local kubeconfig template
 │   ├── llm-stack
 │   │   └── helm
 │   │       ├── cpu
@@ -103,9 +105,9 @@ flowchart TD
 │   │           ├── gpu-operator-values.yaml
 │   │           └── gpu-tinyllama-light-ingress-nebius.tpl
 │   ├── manifests
-│   │   └── letsencrypt-issuer.yaml
-│   ├── vllm-dashboard.json
-└── README.md             # ← you are here
+│   │   └── letsencrypt-issuer.yaml       # Let's Encrypt ClusterIssuer              
+│   ├── vllm-dashboard.json               # Pre-built vLLM Grafana dashboard
+└── README.md                             # ← you are here
 
 ```
 
@@ -595,4 +597,5 @@ ingress:
 - vLLM Docs: [https://docs.vllm.ai/](https://docs.vllm.ai/)
 
 <!-- markdownlint-disable MD051 MD036 MD056 -->
+
 
