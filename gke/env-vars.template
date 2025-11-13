@@ -1,0 +1,111 @@
+################################################################################
+# 🌍 Google Cloud Credentials & Project
+################################################################################
+export TF_VAR_project_id=""          # ← your GCP project ID (required)
+export TF_VAR_region="us-central1"   # ← GCP region for the cluster
+# export TF_VAR_zones='["us-central1-a"]'  # ← optional: pin to zone(s) for zonal cluster
+
+################################################################################
+# 📦 Project & VPC Management
+################################################################################
+export TF_VAR_create_project="false"          # true → create new project
+export TF_VAR_create_vpc="true"               # false → reuse existing VPC
+# export TF_VAR_network_project_id=""         # ← for shared-VPC host project
+
+################################################################################
+# ☸️ GKE Cluster Basics
+################################################################################
+export TF_VAR_cluster_name="vllm-gke"
+export TF_VAR_cluster_version="1.30"          # or "latest" / "1.31"
+export TF_VAR_regional="true"                 # false → zonal cluster (faster, no HA)
+
+################################################################################
+# 🧠 vLLM Inference Configuration
+################################################################################
+export TF_VAR_enable_vllm="true"              # deploy vLLM stack
+export TF_VAR_hf_token=""                     # ← Hugging Face token (required for gated models)
+export TF_VAR_inference_hardware="gpu"        # "cpu" or "gpu"
+export TF_VAR_letsencrypt_email="your@email.com" # replace with your email for Let's Encrypt notifications
+
+################################################################################
+# 🌐 Network Configuration (all optional - defaults shown)
+################################################################################
+# export TF_VAR_vpc_name="vllm-vpc"
+# export TF_VAR_subnetwork_name="vllm-subnet"
+# export TF_VAR_subnetwork_cidr="10.20.1.0/24"
+# export TF_VAR_pod_range_name="pod-range"
+# export TF_VAR_pod_cidr="10.244.0.0/16"
+# export TF_VAR_service_range_name="service-range"
+# export TF_VAR_service_cidr="10.96.0.0/16"
+# export TF_VAR_master_ipv4_cidr_block="172.16.0.0/28"
+
+################################################################################
+# 🛡️ Private Cluster Settings
+################################################################################
+# export TF_VAR_enable_private_nodes="true"
+# export TF_VAR_enable_private_endpoint="false"
+
+################################################################################
+# 💻 Node-Group Sizing
+################################################################################
+# export TF_VAR_gpu_node_min_size="1" 
+# export TF_VAR_gpu_node_max_size="3"  
+# export TF_VAR_cpu_node_min_size="1"  
+# export TF_VAR_cpu_node_max_size="2"
+
+################################################################################
+# 🛠️ Additional Add-ons
+################################################################################
+# export TF_VAR_enable_vpa="false"
+# export TF_VAR_enable_cert_manager="true"
+
+################################################################################
+# 💾 Storage Configuration
+################################################################################
+export TF_VAR_enable_disk_csi_driver="true"
+export TF_VAR_enable_file_csi_driver="false"
+
+################################################################################
+# 📊 Observability Stack
+################################################################################
+# export TF_VAR_grafana_admin_password="admin1234"  # Grafana admin password (change this!)
+# export TF_VAR_enable_metrics_server="true"
+# export TF_VAR_enable_prometheus="true"
+
+################################################################################
+#  🏷️ Resource Labels (optional)
+################################################################################
+# export TF_VAR_tags='{"environment":"production","project":"vllm-tutorial","managed-by":"terraform"}'
+
+################################################################################
+#  Paths to Helm chart values templates (relative to repo root)
+################################################################################
+export TF_VAR_cpu_vllm_helm_config="modules/llm-stack/helm/cpu/cpu-tinyllama-light-ingress-gcp.tpl"
+export TF_VAR_gpu_vllm_helm_config="modules/llm-stack/helm/gpu/gpu-tinyllama-light-ingress-gcp.tpl"
+
+################################################################################
+# ⚠️ IMPORTANT NOTES
+################################################################################
+# 1. Never commit the actual 'env-vars' file to Git
+# 2. Store sensitive values (tokens, passwords) in GCP vault
+# 3. Review all default values before deployment
+# 4. Update TF_VAR_tags to match your organization's requirements
+# 5. For production: change default passwords and use strong secrets
+################################################################################
+# Validation check
+if [ -z "$TF_VAR_project_id" ]; then
+  echo "⚠️  WARNING: TF_VAR_project_id is not set!"
+  echo "   Set it before running 'terraform apply' (ignore if create_project=true)"
+fi
+
+if [ "$TF_VAR_enable_vllm" = "true" ] && [ -z "$TF_VAR_hf_token" ]; then
+  echo "⚠️  WARNING: TF_VAR_hf_token is required when enable_vllm=true"
+fi
+
+echo "✅ Environment variables loaded successfully!"
+echo "   Region: $TF_VAR_location"
+echo "   Cluster: $TF_VAR_cluster_name"
+echo "   Hardware: $TF_VAR_inference_hardware"
+echo "   vLLM: $TF_VAR_enable_vllm"
+
+echo "✅ Environment variables loaded for vLLM GKE stack"

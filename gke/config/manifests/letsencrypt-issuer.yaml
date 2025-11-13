@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: ${letsencrypt_email}  # Replace with your email
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+    - http01:
+        ingress: {} # will reuse the main ingress (acme-http01-edit-in-place: "true")
+          # ingressTemplate:
+          #   metadata:
+          #     annotations:
+          #       # Force the ACME solver ingress to use your static IP
+          #       kubernetes.io/ingress.global-static-ip-name: ${static_ip_name}
+                
